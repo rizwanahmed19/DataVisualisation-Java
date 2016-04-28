@@ -1,7 +1,17 @@
 package LifeExpectancy;
 
+import processing.core.PApplet;
+
 /**
- * Created by Rehan Ahmed on 4/28/2016.
+ * Created by Rizwan Ahmed on 4/28/2016.
  */
-public class LifeExpectancy {
+public class LifeExpectancy extends PApplet {
+
+    public void setup(){
+
+    }
+
+    public void draw(){
+
+    }
 }
