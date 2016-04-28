@@ -1,6 +1,9 @@
 package LifeExpectancy;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.data.Feature;
+import de.fhpotsdam.unfolding.data.GeoJSONReader;
+import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.providers.*;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import processing.core.PApplet;
@@ -14,7 +17,9 @@ import java.util.List;
 public class LifeExpectancy extends PApplet {
 
     private UnfoldingMap map; // To display the map
-    private HashMap<String, Float> lifeExpData;
+    private HashMap<String, Float> lifeExpData; // Hashmap to hold country ID and values
+    private List<Feature> countries;
+    private List<Marker> countriesMarkers;
 
     public void setup(){
         size(700, 500);
@@ -26,6 +31,34 @@ public class LifeExpectancy extends PApplet {
         map.zoomToLevel(1);
         lifeExpData = loadLifeExpData("G:\\IdeaProjects\\CourseraJava\\data\\LifeExpectancyWorldBank.csv");
 
+        // Read data from the JSON file
+        countries = GeoJSONReader.loadData(this, "G:\\IdeaProjects\\CourseraJava\\data\\countries.geo.json");
+
+        countriesMarkers = MapUtils.createSimpleMarkers(countries);
+
+        map.addMarkers(countriesMarkers); // Add markers to the map
+        shadeCountries(); // Add color to the markers
+    }
+
+    /*
+    * This helper method will shade/color the countries based on the life expectancy values
+    * RED color indicates low life expectancy values
+    * Blue color indicates high life expectancy values
+    */
+    private void shadeCountries() {
+        for(Marker marker : countriesMarkers){
+            String countryID = marker.getId();
+
+            if(lifeExpData.containsKey(countryID)){
+                float value = lifeExpData.get(countryID);
+
+                int colorLevel = (int)map(value, 40, 90, 10, 255);
+                marker.setColor(color(255 - colorLevel, 100, colorLevel));
+            }
+            else{
+                marker.setColor(color(150, 150, 150));
+            }
+        }
     }
 
     /*
