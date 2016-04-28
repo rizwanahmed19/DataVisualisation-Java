@@ -8,4 +8,4 @@ This applet shows the average life expectancy of each country on the globe
 RED color means that the Life Expectancy is LOW
 BLUE color means that the Life Expectancy is High
 
-![Life Expectancy Applet](G:\IdeaProjects\CourseraJava\src\LifeExpectancy\data\lifeExpect.png "Life Expectancy")
+![Life Expectancy Applet](https://github.com/rizwanahmed19/DataVisualisation-Java/blob/master/src/LifeExpectancy/data/lifeExpect.png "Life Expectancy")
